@@ -23,8 +23,23 @@ def earliest_ancestor(ancestors, starting_node, nodes=None):
         graph.add_edge(tuple[1], tuple[0])
     # print(graph.vertices)
 
-    earliest = graph.dft(starting_node)
-    print("earliest:", earliest)
+    path_list = []
+    no_none = []
+    ends = []
+    for vertex in nodes:
+        earliest = graph.dfs_recursive(starting_node, vertex)
+        path_list.append(earliest)
+
+    for path in path_list:
+        if path is not None:
+            no_none.append(path)
+    print(no_none)
+
+    for path in no_none:
+        ends.append(path[-1])
+    print(ends)
+
+    # print("earliest:", earliest)
     # if earliest is None:
     #     return -1
     # else:

@@ -84,7 +84,6 @@ class Graph:
                 # Then push all neighbors to the top of the stack
                 for neighbor in self.get_neighbors(v):
                     s.push(neighbor)
-                return min(self.get_neighbors(v))
 
     def dft_recursive(self, starting_vertex, visited=None):
         """
