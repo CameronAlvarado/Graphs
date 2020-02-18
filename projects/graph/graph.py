@@ -224,7 +224,7 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print("vertices")
+    print("Vertices:")
     print(graph.vertices)
 
     '''
@@ -242,8 +242,8 @@ if __name__ == '__main__':
         1, 2, 4, 3, 7, 6, 5
         1, 2, 4, 3, 7, 5, 6
     '''
-    # graph.bft(1)
-    # print()
+    print("BFT")
+    graph.bft(1)
 
     # '''
     # Valid DFT paths:
