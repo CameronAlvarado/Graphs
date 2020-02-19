@@ -1,4 +1,5 @@
 from graph import Graph
+from util import Stack, Queue  # These may come in handy
 
 
 def earliest_ancestor(ancestors, starting_node, nodes=None):
@@ -25,19 +26,36 @@ def earliest_ancestor(ancestors, starting_node, nodes=None):
 
     path_list = []
     no_none = []
-    ends = []
+    lengths = []
+    possible = []
     for vertex in nodes:
         earliest = graph.dfs_recursive(starting_node, vertex)
         path_list.append(earliest)
+    # print(path_list)
 
     for path in path_list:
         if path is not None:
             no_none.append(path)
-    print(no_none)
+    # print(no_none)
 
+    for arr in no_none:
+        lengths.append(len(arr))
+    # print(lengths)
+
+    longest = max(lengths)
+    print(longest)
     for path in no_none:
-        ends.append(path[-1])
-    print(ends)
+        if len(path) is longest:
+            if path[-1] is starting_node:
+                return(-1)
+            else:
+                possible.append(path[-1])
+                smallest = min(possible)
+                return(smallest)
+
+    # for path in no_none:
+    #     ends.append(path[-1])
+    # print(ends)
 
     # print("earliest:", earliest)
     # if earliest is None:
