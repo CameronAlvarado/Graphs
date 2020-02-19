@@ -6,7 +6,7 @@ def earliest_ancestor(ancestors, starting_node):
     graph = Graph()
     # loop through array of tuples
     for tuple in ancestors:
-        # add numbers to set of possible nodes
+        # add numbers to set of possible vertices
         if tuple[0] not in graph.vertices:
             graph.add_vertex(tuple[0])
         if tuple[1] not in graph.vertices:
@@ -21,6 +21,7 @@ def earliest_ancestor(ancestors, starting_node):
     path_list = []
     for vertex in graph.vertices:
         path = graph.dfs_recursive(starting_node, vertex)
+        # Filter out None values
         if path is not None:
             path_list.append(path)
     # print(path_list)
@@ -32,11 +33,9 @@ def earliest_ancestor(ancestors, starting_node):
     # print(lengths)
 
     # Find the longest path
-    longest = max(lengths)
-    # print(longest)
     for path in path_list:
-        if len(path) is longest:
-            # Return -1 if only possible path is the same
+        if len(path) is max(lengths):
+           # Return -1 if only possible path is same as starting
             if path[-1] is starting_node:
                 return(-1)
             else:
@@ -44,5 +43,4 @@ def earliest_ancestor(ancestors, starting_node):
                 possible = []
                 possible.append(path[-1])
                 # Grab the least of possible ends.
-                smallest = min(possible)
-                return(smallest)
+                return min(possible)
