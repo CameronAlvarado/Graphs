@@ -20,15 +20,15 @@ def earliest_ancestor(ancestors, starting_node):
     # find paths to every possible vertex using recursion
     path_list = []
     for vertex in graph.vertices:
-        earliest = graph.dfs_recursive(starting_node, vertex)
-        if earliest is not None:
-            path_list.append(earliest)
+        path = graph.dfs_recursive(starting_node, vertex)
+        if path is not None:
+            path_list.append(path)
     # print(path_list)
 
     # Create list of the lengths of possible paths
     lengths = []
-    for arr in path_list:
-        lengths.append(len(arr))
+    for path in path_list:
+        lengths.append(len(path))
     # print(lengths)
 
     # Find the longest path
