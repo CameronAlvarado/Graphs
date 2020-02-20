@@ -125,8 +125,8 @@ class Graph:
                 # IF SO, RETURN THE PATH
                 return d
             # Check if it's been visited
-            # If it has not been visited...
             if last not in visited:
+                # If not...
                 # Mark it as visited
                 visited.add(last)
                 # Then add A PATH TO all neighbors to the back of the queue
