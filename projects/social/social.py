@@ -1,4 +1,5 @@
 import random
+from util import Queue
 
 
 class User:
@@ -64,9 +65,9 @@ class SocialGraph:
 
         # Shuffle the list
         random.shuffle(possible_friendships)
-        print("----")
+        print("-----------------------------------------------------")
         print(possible_friendships)
-        print("----")
+        print("^------^------^ possible friendships ^-------^------^")
         # Grab the first N pairs from the list and create those friendships
         for i in range(num_users * avg_friendships // 2):
             friendship = possible_friendships[i]
@@ -75,6 +76,7 @@ class SocialGraph:
         # avg_friendships = total_friendships / num_users
         # total_friendships = avg_friendships * num_users
         # N = avg_friendships * num_users // 2
+        return possible_friendships
 
     def get_all_social_paths(self, user_id):
         """
@@ -87,13 +89,33 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+
+        # Create a queue
+        q = Queue()
+        # Add the given user_id to the queue
+        q.enqueue([user_id])
+
+        # While the queue is not empty...
+        while q.size() > 0:
+            # Grab a list starting with the user_id
+            vertex = q.dequeue()
+            # Grab the last endpoint
+            v = vertex[-1]
+            # If last endpoint has not been visited, add it.
+            if v not in visited:
+                visited[v] = vertex
+                for friend_id in self.friendships[v]:
+                    path_copy = vertex.copy()
+                    path_copy.append(friend_id)
+                    q.enqueue(path_copy)
+
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.users)
-    print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    # print("Users:", sg.users)
+    # print("Friendships:", sg.friendships)
+    connections = sg.get_all_social_paths(1)
+    print(connections)
