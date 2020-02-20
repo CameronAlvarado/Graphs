@@ -13,9 +13,9 @@ world = World()
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
-map_file = "maps/test_cross.txt"
+# map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
-# map_file = "maps/test_loop_fork.txt"
+map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
@@ -71,15 +71,29 @@ for room in room_graph:
     for exit in exit_dic:
         graph.add_edge(room, exit_dic[exit])
 print("Vertices:", graph.vertices)
+print()
 
 # find paths to every possible vertex using recursion
 path_list = []
 for vertex in graph.vertices:
     path = graph.dfs_recursive(current_room, vertex)
     # Filter out None values
-    # if path is not None:
-    path_list.append(path)
-print(path_list)
+    if path is not None:
+        path_list.append(path)
+print("Path List:", path_list)
+print()
+
+# opposite = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+
+# for path in path_list:
+#     exit_dic = room_graph[current_room][-1]
+#     for exit in exit_dic:
+#         if exit_dic[exit] in path:
+#             traversal_path.append(exit)
+
+# for dir in traversal_path:
+#     pass
+# print(traversal_path)
 
 
 # def dft(starting_vertex):
@@ -107,10 +121,8 @@ print(path_list)
 #             for neighbor in self.get_neighbors(v):
 #                 s.push(neighbor)
 
-
 # DFT = dft(22)
 # print("DFT:", DFT)
-
 
 # Loop
 # if all directions are explored...
@@ -121,7 +133,6 @@ print(path_list)
 # Convert this to a list of n/s/e/w directions before adding to traversal path
 
 # Done when all paths have been explored
-
 
 # TRAVERSAL TEST
 visited_rooms = set()
