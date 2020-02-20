@@ -12,8 +12,8 @@ world = World()
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-map_file = "maps/test_line.txt"
-# map_file = "maps/test_cross.txt"
+# map_file = "maps/test_line.txt"
+map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt"
@@ -71,6 +71,15 @@ for room in room_graph:
     for exit in exit_dic:
         graph.add_edge(room, exit_dic[exit])
 print("Vertices:", graph.vertices)
+
+# find paths to every possible vertex using recursion
+path_list = []
+for vertex in graph.vertices:
+    path = graph.dfs_recursive(current_room, vertex)
+    # Filter out None values
+    # if path is not None:
+    path_list.append(path)
+print(path_list)
 
 
 # def dft(starting_vertex):
