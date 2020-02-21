@@ -42,25 +42,10 @@ random_exit = random.choice(exits)
 print("Room Graph:", room_graph)
 print()
 
-# for room in room_graph:
-#     exit_dic = room_graph[room][-1]
-#     print(room, exit_dic)
-
-# for exit in exit_dic:
-# print(room, exit_dic[exit])
-
-# Algorithm:
-# Use DFT
-# Pick a random unexplored direction from current room
-# Travel and log that direction
+# ----- Attempt 1 ------
 
 # instantiate a graph
 graph = Graph()
-# loop through array of tuples
-# for exit in exits:
-#     # add numbers to set of possible vertices
-#     if exit not in graph.vertices:
-#         graph.add_vertex(exit)
 
 for room in room_graph:
     graph.add_vertex(room)
@@ -83,47 +68,29 @@ for vertex in graph.vertices:
 print("Path List:", path_list)
 print()
 
+# Convert path list into directions
 # opposite = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
-# for path in path_list:
-#     exit_dic = room_graph[current_room][-1]
-#     for exit in exit_dic:
-#         if exit_dic[exit] in path:
-#             traversal_path.append(exit)
+dir_list = []
+# exit_dic = room_graph[current_room][-1]
 
-# for dir in traversal_path:
-#     pass
-# print(traversal_path)
+opposite = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
+for path in path_list:
+    exit_dic = room_graph[current_room][-1]
+    for exit in exit_dic:
+        if exit_dic[exit] in path:
+            dir_list.append(exit)
+            current_room = exit_dic[exit]
 
-# def dft(starting_vertex):
-#     """
-#     Print each vertex in depth-first order
-#     beginning from starting_vertex.
-#     """
-#     # Create an empty stack
-#     s = Stack()
-#     # Push the starting vertex_id to the stack
-#     s.push(starting_vertex)
-#     # Create an empty set to store visited nodes
-#     visited = set()
-#     # While the stack is not empty...
-#     while s.size() > 0:
-#         # Pop the first vertex
-#         exit = s.pop()
-#         # Check if it's been visited
-#         # If it has not been visited...
-#         if exit not in visited:
-#             # Mark it as visited
-#             print(exit)
-#             visited.add(exit)
-#             # Then push all neighbors to the top of the stack
-#             for neighbor in self.get_neighbors(v):
-#                 s.push(neighbor)
+print(dir_list)
 
-# DFT = dft(22)
-# print("DFT:", DFT)
+# ----- End of Attempt 1 -----
 
+# Algorithm:
+# Use DFT
+# Pick a random unexplored direction from current room
+# Travel and log that direction
 # Loop
 # if all directions are explored...
 # Walk back to nearest room that contains an unexplored path
