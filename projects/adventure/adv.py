@@ -42,46 +42,48 @@ print()
 random_exit = random.choice(exits)
 print("random exit:", random_exit)
 print()
-rooms = []
-for room in room_graph:
-    rooms.append(room)
-print("Rooms:", rooms)
-print()
 print("Room Graph:", room_graph)
 print()
 
-# Algorithm:
-# Use DFT
-q = Queue()
-# Add the starting vertex_id to the queue
-q.enqueue(current_room)
-# Create an empty set to store visited nodes
-visited = set()
-# While the queue is not empty...
-while q.size() > 0:
-    # Dequeue, the first vertex
-    room = q.dequeue()
-    # Check if it's been visited
-    # If it has not been visited...
-    if room not in visited:
-        # Mark it as visited
-        print(room)
-        visited.add(room)
-        # Then add all neighbors to the back of the queue
-        for neighbor in room_graph[current_room][-1]:
-            q.enqueue(room_graph[current_room][-1][neighbor])
 
-# Pick a random unexplored direction from current room
-# Travel and log that direction
-# Loop
-# if all directions are explored...
-# Walk back to nearest room that contains an unexplored path
-# Use modified BFS
-# Put explored exits into queue
-# BFS will return path as list of room id's
-# Convert this to a list of n/s/e/w directions before adding to traversal path
+# Use BFT to find way back to last room with unexplored paths
 
-# Done when all paths have been explored
+# Pick unexplored path, walk down that path
+
+def dft(starting_room):
+    # Create an empty queue
+    s = Stack()
+    # Add the starting room_id to the queue
+    s.push(starting_room)
+    # Create an empty set to store visited nodes
+    visited = set()
+    # While the queue is not empty...
+    while s.size() > 0:
+        # Dequeue, the first vertex
+        room = s.pop()
+        # Check if it's been visited
+        # If it has not been visited...
+        if room not in visited:
+            # Mark it as visited
+            print(room)
+            visited.add(room)
+            # Then add all exits to the back of the queue
+            for exit in exits:
+                random_exit = random.choice(exits)
+                next_room = player.current_room.get_room_in_direction(
+                    random_exit)
+                if exit is None:
+                    print("exit is none")
+                traversal_path.append(random_exit)
+                s.push(next_room.id)
+
+
+dft(current_room)
+print(traversal_path)
+# repeat
+# If there are no more unexplored paths...
+# Back track to last room with unexplored paths
+
 
 # ----- Attempt 1 ------
 
@@ -113,7 +115,6 @@ while q.size() > 0:
 # print(dirs)
 
 # ----- End of Attempt 1 -----
-
 
 # TRAVERSAL TEST
 visited_rooms = set()
