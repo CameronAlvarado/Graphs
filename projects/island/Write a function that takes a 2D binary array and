@@ -1,0 +1,14 @@
+Write a function that takes a 2D binary array and returns the number of 1 islands. An island consists of 1s that are connected to the north, south, east or west. For example:
+islands = [[0, 1, 0, 1, 0],
+           [1, 1, 0, 1, 1],
+           [0, 0, 1, 0, 0],
+           [1, 0, 1, 0, 0],
+           [1, 1, 0, 0, 0]]
+
+island_counter(islands) # returns 4
+# find all the nodes that are connected to each other.
+# DFS or BFS
+
+1. Translate into graph
+2. Build the graph
+3. Traverse the graph.

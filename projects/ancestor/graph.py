@@ -70,6 +70,7 @@ class Graph:
         # Push the starting vertex_id to the stack
         s.push(starting_vertex)
         # Create an empty set to store visited nodes
+        # Prevents cyclical behavior.
         visited = set()
         # While the stack is not empty...
         while s.size() > 0:

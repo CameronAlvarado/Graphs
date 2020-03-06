@@ -1,6 +1,14 @@
+import random
+from util import Queue
+
+
 class User:
     def __init__(self, name):
         self.name = name
+
+    def __repr__(self):
+        return self.name
+
 
 class SocialGraph:
     def __init__(self):
@@ -45,8 +53,30 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
+        for i in range(num_users):
+            self.add_user(f"User {i+1}")
 
         # Create friendships
+        # create a list with all possible friendships
+        possible_friendships = []
+        for user_id in self.users:
+            for friend_id in range(user_id + 1, self.last_id + 1):
+                possible_friendships.append((user_id, friend_id))
+
+        # Shuffle the list
+        random.shuffle(possible_friendships)
+        # print("-----------------------------------------------------")
+        # print(possible_friendships)
+        # print("^------^------^ possible friendships ^-------^------^")
+        # Grab the first N pairs from the list and create those friendships
+        for i in range(num_users * avg_friendships // 2):
+            friendship = possible_friendships[i]
+            self.add_friendship(friendship[0], friendship[1])
+
+        # avg_friendships = total_friendships / num_users
+        # total_friendships = avg_friendships * num_users
+        # N = avg_friendships * num_users // 2
+        return possible_friendships
 
     def get_all_social_paths(self, user_id):
         """
@@ -58,13 +88,45 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        # !!!! IMPLEMENT AND RETURN ME
+
+        # Modify a BFT to store the path
+        # Create a queue
+        q = Queue()
+        # Add the given user_id in a path to the queue
+        q.enqueue([user_id])
+
+        # While the queue is not empty...
+        while q.size() > 0:
+            # Grab the path next in the queue
+            path = q.dequeue()
+            # Grab the last value
+            v = path[-1]
+            # If last endpoint has not been visited...
+            if v not in visited:
+                # Add as visited
+                visited[v] = path
+                for friend_id in self.friendships[v]:
+                    # COPY THE PATH
+                    path_copy = path.copy()
+                    # ADD FRIEND TO THE PATH
+                    path_copy.append(friend_id)
+                    q.enqueue(path_copy)
+        # When queue is empty, return the dictionary
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    # print("Users:", sg.users)
+    print()
+    # print("Friendships:", sg.friendships)
+    print()
     connections = sg.get_all_social_paths(1)
-    print(connections)
+    print(len(connections))
+    total = 0
+    for connection in connections:
+        total += len(connections[connection])
+    print(total / len(connections) - 1)
+    # print("Connections:", connections)

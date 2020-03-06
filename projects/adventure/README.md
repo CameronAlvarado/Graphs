@@ -47,6 +47,9 @@ If all paths have been explored, you're done!
 
 ## Minimum Viable Product
 
+# No need to modify room.py or world.py
+# Do not edit the mazes
+
 * __1__: Tests do not pass
 * __2__: Tests pass with `len(traversal_path) <= 2000`
 * __3__: Tests pass with `len(traversal_path) < 960`
